@@ -1,186 +1,32 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Current time</title>
-    <style>
-        *
-        {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body
-        {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #091921;
-        }
-        .clock
-        {
-            width:350px;
-            height: 350px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-size: cover;
-            border: 16px solid #91921;
-            border-radius: 50%;
-            box-shadow: 0 -15px 15px rgba(255,255,255,0.05),
-            inset 0 -15px 15px rgba(255,255,255,0.05),
-            0 15px 15px rgba(0,0,0,0.3),
-            inset 0 15px 15px rgba(0,0,0,0.3);
-        }
-        .clock:before
-        {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background: #fff;
-            border-radius: 50%;
-            z-index: 10000;
-        }
-        .clock .hour,
-        .clock .min,
-        .clock .sec
-        {
-            position: absolute;
-        }
-        .clock .hour, .hr
-        {
-            width: 160px;
-            height: 160px;
-        }
-        .clock .min, .mn
-        {
-            width: 190px;
-            height: 190px;
-        }
-        .clock .sec, .sc
-        {
-            width: 230px;
-            height: 230px;
-        }
-        .hr, .mn, .sc
-        {
-            display: flex;
-            justify-content: center;
-            /*align-items: center;*/
-            position: absolute;
-            border-radius: 50%;
-        }
-        .hr:before
-        {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 80px;
-            background: #ff105e;
-            z-index: 10;
-            border-radius: 6px 6px 0 0;
-        }
-        .mn:before
-        {
-            content: '';
-            position: absolute;
-            width: 4px;
-            height: 90px;
-            background: #fff;
-            z-index: 11;
-            border-radius: 6px 6px 0 0;
-        }
-        .sc:before
-        {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 150px;
-            background: #ff105e;
-            z-index: 12;
-            border-radius: 6px 6px 0 0;
-        }
-        span
-        {
-            content: '';
-            display: block;
-            position: absolute;
-            left: 50%;
-            width: 9%;
-            height: 4px;
-            z-index: 25px;
-            background: transparent;
-            transform-origin: left;
-            animation: animate 3s linear infinite;
-        }
-        span:after
-        {
-            content:'';
-            position: absolute;
-            width: 8px;
-            height: 25px;
-            border-radius: 50%;
-            background: purple;
-            top: -6px;
-            right: -8px;
-            box-shadow: 0 0 20px blue;
-        }
-        @keyframes animate
-        {
-            0%
-            {
-                transform: rotate(0deg);
-            }
-            100%
-            {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Current time</title>
+  <link rel="stylesheet" href="static/css/main.css">
 </head>
 <body>
 <div class="light">
-    <span></span>
+  <span></span>
 </div>
-</div>
+
 <div class="clock">
-    <div class="hour">
-        <div class="hr" id="hr"></div>
+  <div class="hour">
+    <div class="hr" id="hr"></div>
+  </div>
+  <div class="min">
+    <div class="mn" id="mn">
     </div>
-    <div class="min">
-        <div class="mn" id="mn">
-        </div>
 
+  </div>
+  <div class="sec">
+    <div class="sc" id="sc">
     </div>
-    <div class="sec">
-        <div class="sc" id="sc">
-        </div>
-
-        <script type="text/javascript">
-            const deg = 6;
-            const hr = document.querySelector('#hr');
-            const mn = document.querySelector('#mn');
-            const sc = document.querySelector('#sc');
-            const socket = new WebSocket("ws://"+document.location.hostname+":"+document.location.port+"/ws");
-
-            socket.onmessage = event => {
-                const currentTime = new Date(event.data);
-                let browserOffset = currentTime.getTimezoneOffset() * 60 * 1000; // Получаем смещение в миллисекундах
-                if(browserOffset < 0)  {
-                    browserOffset *= -1
-                }
-
-                let localTime = new Date(currentTime.getTime() + browserOffset);
-                let hh = localTime.getHours() * 30;
-                let mm = localTime.getMinutes() * deg;
-                let ss = localTime.getSeconds() * deg;
-
-                hr.style.transform = `rotateZ(${(hh)+(mm/12)}deg)`;
-                mn.style.transform = `rotateZ(${mm}deg)`;
-                sc.style.transform = `rotateZ(${ss}deg)`;
-            };
-        </script>
+  </div>
+</div>
+<script src="static/js/main.js"></script>
 </body>
 </html>
