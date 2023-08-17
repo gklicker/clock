@@ -6,7 +6,7 @@ const sc = document.querySelector('#sc');
 function setupWebSocket() {
     const socket = new WebSocket("ws://" + document.location.hostname + ":" + document.location.port + "/ws");
 
-    socket.onopen = function (e) {
+    socket.onopen = function () {
         console.log("Connection established");
     };
 

@@ -19,7 +19,12 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	defer conn.Close()
+	defer func(conn *websocket.Conn) {
+		err := conn.Close()
+		if err != nil {
+
+		}
+	}(conn)
 
 	for {
 		currentTime := time.Now().UTC().Format("2006-01-02 15:04:05")
