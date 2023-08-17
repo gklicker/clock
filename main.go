@@ -19,7 +19,12 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	defer conn.Close()
+	defer func(conn *websocket.Conn) {
+		err := conn.Close()
+		if err != nil {
+
+		}
+	}(conn)
 
 	for {
 		currentTime := time.Now().UTC().Format("2006-01-02 15:04:05")
@@ -32,12 +37,17 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 }
 
 func serveIndexPage(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "index.html")
+	if r.URL.Path == "/" {
+		http.ServeFile(w, r, "index.html")
+	} else {
+		http.NotFound(w, r)
+	}
 }
 
 func main() {
 	http.HandleFunc("/ws", handleWebSocket)
 	http.HandleFunc("/", serveIndexPage)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	serverAddr := "127.0.0.1:8080"
 	fmt.Printf("Server is running at http://%s\n", serverAddr)

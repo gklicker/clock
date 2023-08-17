@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #091921;
+}
+
+.clock {
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    /*border: 16px solid #091921;*/
+    border-radius: 50%;
+    box-shadow: 0 -15px 15px rgba(255, 255, 255, 0.05),
+    inset 0 -15px 15px rgba(255, 255, 255, 0.05),
+    0 15px 15px rgba(0, 0, 0, 0.3),
+    inset 0 15px 15px rgba(0, 0, 0, 0.3);
+}
+
+.clock:before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    z-index: 10000;
+}
+
+.clock .hour,
+.clock .min,
+.clock .sec {
+    position: absolute;
+}
+
+.clock .hour, .hr {
+    width: 160px;
+    height: 160px;
+}
+
+.clock .min, .mn {
+    width: 190px;
+    height: 190px;
+}
+
+.clock .sec, .sc {
+    width: 230px;
+    height: 230px;
+}
+
+.hr, .mn, .sc {
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    position: absolute;
+    border-radius: 50%;
+}
+
+.hr:before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 80px;
+    background: #ff105e;
+    z-index: 10;
+    border-radius: 6px 6px 0 0;
+}
+
+.mn:before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 90px;
+    background: #fff;
+    z-index: 11;
+    border-radius: 6px 6px 0 0;
+}
+
+.sc:before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 150px;
+    background: #ff105e;
+    z-index: 12;
+    border-radius: 6px 6px 0 0;
+}
+
+span {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    width: 9%;
+    height: 4px;
+    z-index: 25;
+    background: transparent;
+    transform-origin: left;
+    animation: animate 3s linear infinite;
+}
+
+span:after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 25px;
+    border-radius: 50%;
+    background: purple;
+    top: -6px;
+    right: -8px;
+    box-shadow: 0 0 20px blue;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.theme-toggle-checkbox {
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background: #333;
+    outline: none;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+.theme-toggle-checkbox:before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: left 0.3s ease;
+}
+
+.theme-toggle-checkbox:checked {
+    background: #ff105e;
+}
+
+.theme-toggle-checkbox:checked:before {
+    left: 22px;
+}
+
+.light-theme {
+    /*background: #f0f0f0;*/
+    /*color: #333;*/
+    background-color: papayawhip;
+}
+
+/*body.light-theme .clock {*/
+/*    border-color: #333;*/
+/*}*/
+
+/* Можно добавить другие стили для светлой темы */
+
