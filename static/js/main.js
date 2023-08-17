@@ -3,6 +3,14 @@ const hr = document.querySelector('#hr');
 const mn = document.querySelector('#mn');
 const sc = document.querySelector('#sc');
 
+
+const clockContainer = document.querySelector(".clock-container")
+const themeToggle = document.getElementById('theme-toggle')
+
+themeToggle.addEventListener('click', function () {
+    clockContainer.classList.toggle('light-theme');
+});
+
 function setupWebSocket() {
     const socket = new WebSocket("ws://" + document.location.hostname + ":" + document.location.port + "/ws");
 
@@ -39,3 +47,5 @@ function setupWebSocket() {
 }
 
 setupWebSocket();  // Инициализация WebSocket при загрузке страницы
+
+
